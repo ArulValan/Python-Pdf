@@ -1,0 +1,52 @@
+﻿<!doctype html>
+<head> <meta charset="UTF-8">
+<script>
+function subst() {
+      var vars = {};
+      var query_strings_from_url = document.location.search.substring(1).split('&');
+      for (var query_string in query_strings_from_url) {
+          if (query_strings_from_url.hasOwnProperty(query_string)) {
+              var temp_var = query_strings_from_url[query_string].split('=', 2);
+              vars[temp_var[0]] = decodeURI(temp_var[1]);
+          }
+      }
+      var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+      for (var css_class in css_selector_classes) {
+          if (css_selector_classes.hasOwnProperty(css_class)) {
+              var element = document.getElementsByClassName(css_selector_classes[css_class]);
+              for (var j = 0; j < element.length; ++j) {
+                  element[j].textContent = vars[css_selector_classes[css_class]];
+              }
+          }
+      }
+  }
+</script>
+<style> body{overflow: hidden !important;margin:0; padding:0;}
+#leftdiv
+{
+    background-color:#C0C0C0;
+    width:50%;
+    #max-width:800px;
+    float:left;
+}
+
+#rightdiv
+{
+    background-color:#C0C0C0;
+    width:50%;
+    float:right;
+}
+</style>
+ </head>
+<body onload="subst()">
+<div id="rightdiv" >
+Patient id : 0001 <br>
+Patient name : Mr.X <br>
+Chief consultant :Dr.Doctor<br>
+</div>
+<div id="leftdiv">
+Date: 24/04/2018<br>
+Age : 23 (m)<br>
+Page: <span class="page"></span> / <span class="topage"></span> <br>
+</div>
+</body>
